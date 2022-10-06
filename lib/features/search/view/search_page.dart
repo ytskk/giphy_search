@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:giphy/core/core.dart';
 import 'package:giphy/data/data.dart';
@@ -52,6 +53,20 @@ class _SearchPageState extends State<SearchPage> {
         controller: _textEditingController,
       ),
       body: BlocConsumer<SearchBloc, SearchState>(
+        /// Provides haptic feedback when the data is loaded, depending on the
+        /// status.
+        listenWhen: (previous, current) {
+          if (previous.status == SearchLoadStatus.inProgressInitial &&
+              current.status == SearchLoadStatus.success) {
+            HapticFeedback.mediumImpact();
+          }
+          if (previous.status == SearchLoadStatus.inProgress &&
+              current.status == SearchLoadStatus.success) {
+            HapticFeedback.lightImpact();
+          }
+
+          return true;
+        },
         listener: (context, state) {
           if (state.status == SearchLoadStatus.initial) {
             _textEditingController.text = state.q;
