@@ -1,10 +1,7 @@
-import 'dart:developer';
 import 'dart:ui';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:giphy/constants/constants.dart';
-
 import 'package:giphy/data/data.dart';
 
 class GifCardItem extends StatefulWidget {

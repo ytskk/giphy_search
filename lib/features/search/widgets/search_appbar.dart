@@ -16,6 +16,7 @@ class SearchAppBar extends StatelessWidget with PreferredSizeWidget {
     return BlocBuilder<SearchBloc, SearchState>(
       builder: (context, state) {
         return AppBar(
+          backgroundColor: Colors.black,
           title: ConstrainedBox(
             constraints: const BoxConstraints(
               maxWidth: 1024.0,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:giphy/constants/constants.dart';
+import 'package:scrolls_to_top/scrolls_to_top.dart';
 
 /// {@template responsive_masonry_view}
 /// Creates scrollable masonry grid view with response.
@@ -61,21 +62,30 @@ class _ResponsiveMasonryViewState extends State<ResponsiveMasonryView> {
 
         return RefreshIndicator(
           onRefresh: () async => await widget.onRefresh?.call(),
-          child: MasonryGridView.builder(
-            controller: _scrollController,
-            itemCount: widget.itemCount,
-            gridDelegate: SliverSimpleGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: axisCount,
+          child: ScrollsToTop(
+            onScrollsToTop: (event) async {
+              _scrollController.animateTo(
+                0,
+                duration: const Duration(milliseconds: 350),
+                curve: Curves.linear,
+              );
+            },
+            child: MasonryGridView.builder(
+              controller: _scrollController,
+              itemCount: widget.itemCount,
+              gridDelegate: SliverSimpleGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: axisCount,
+              ),
+              mainAxisSpacing: 8.0,
+              crossAxisSpacing: 8.0,
+              padding: const EdgeInsets.fromLTRB(
+                12.0,
+                24.0,
+                12.0,
+                64.0,
+              ),
+              itemBuilder: widget.itemBuilder,
             ),
-            mainAxisSpacing: 8.0,
-            crossAxisSpacing: 8.0,
-            padding: const EdgeInsets.fromLTRB(
-              12.0,
-              24.0,
-              12.0,
-              64.0,
-            ),
-            itemBuilder: widget.itemBuilder,
           ),
         );
       },
