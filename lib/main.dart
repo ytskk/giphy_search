@@ -17,7 +17,7 @@ Future<void> main() async {
       systemNavigationBarColor: Colors.transparent,
     ),
   );
-  SystemChrome.setEnabledSystemUIMode(
+  await SystemChrome.setEnabledSystemUIMode(
     SystemUiMode.edgeToEdge,
   );
 

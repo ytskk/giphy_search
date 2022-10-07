@@ -51,6 +51,10 @@ mixin _$ImagesModel {
   @JsonKey(name: 'downsized_still')
   ImageItemModel get downsizedStill => throw _privateConstructorUsedError;
 
+  /// Data on a version of this GIF downsized to be under 200kb.
+  @JsonKey(name: 'downsized_small')
+  ImageItemModel get downsizedSmall => throw _privateConstructorUsedError;
+
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $ImagesModelCopyWith<ImagesModel> get copyWith =>
@@ -68,7 +72,8 @@ abstract class $ImagesModelCopyWith<$Res> {
       @JsonKey(name: 'fixed_height_still') ImageItemModel fixedHeightStill,
       @JsonKey(name: 'fixed_width') ImageItemModel fixedWidth,
       @JsonKey(name: 'fixed_width_still') ImageItemModel fixedWidthStill,
-      @JsonKey(name: 'downsized_still') ImageItemModel downsizedStill});
+      @JsonKey(name: 'downsized_still') ImageItemModel downsizedStill,
+      @JsonKey(name: 'downsized_small') ImageItemModel downsizedSmall});
 
   $ImageItemModelCopyWith<$Res>? get original;
   $ImageItemModelCopyWith<$Res> get fixedHeight;
@@ -76,6 +81,7 @@ abstract class $ImagesModelCopyWith<$Res> {
   $ImageItemModelCopyWith<$Res> get fixedWidth;
   $ImageItemModelCopyWith<$Res> get fixedWidthStill;
   $ImageItemModelCopyWith<$Res> get downsizedStill;
+  $ImageItemModelCopyWith<$Res> get downsizedSmall;
 }
 
 /// @nodoc
@@ -94,6 +100,7 @@ class _$ImagesModelCopyWithImpl<$Res> implements $ImagesModelCopyWith<$Res> {
     Object? fixedWidth = freezed,
     Object? fixedWidthStill = freezed,
     Object? downsizedStill = freezed,
+    Object? downsizedSmall = freezed,
   }) {
     return _then(_value.copyWith(
       original: original == freezed
@@ -119,6 +126,10 @@ class _$ImagesModelCopyWithImpl<$Res> implements $ImagesModelCopyWith<$Res> {
       downsizedStill: downsizedStill == freezed
           ? _value.downsizedStill
           : downsizedStill // ignore: cast_nullable_to_non_nullable
+              as ImageItemModel,
+      downsizedSmall: downsizedSmall == freezed
+          ? _value.downsizedSmall
+          : downsizedSmall // ignore: cast_nullable_to_non_nullable
               as ImageItemModel,
     ));
   }
@@ -168,6 +179,13 @@ class _$ImagesModelCopyWithImpl<$Res> implements $ImagesModelCopyWith<$Res> {
       return _then(_value.copyWith(downsizedStill: value));
     });
   }
+
+  @override
+  $ImageItemModelCopyWith<$Res> get downsizedSmall {
+    return $ImageItemModelCopyWith<$Res>(_value.downsizedSmall, (value) {
+      return _then(_value.copyWith(downsizedSmall: value));
+    });
+  }
 }
 
 /// @nodoc
@@ -183,7 +201,8 @@ abstract class _$$_ImagesModelCopyWith<$Res>
       @JsonKey(name: 'fixed_height_still') ImageItemModel fixedHeightStill,
       @JsonKey(name: 'fixed_width') ImageItemModel fixedWidth,
       @JsonKey(name: 'fixed_width_still') ImageItemModel fixedWidthStill,
-      @JsonKey(name: 'downsized_still') ImageItemModel downsizedStill});
+      @JsonKey(name: 'downsized_still') ImageItemModel downsizedStill,
+      @JsonKey(name: 'downsized_small') ImageItemModel downsizedSmall});
 
   @override
   $ImageItemModelCopyWith<$Res>? get original;
@@ -197,6 +216,8 @@ abstract class _$$_ImagesModelCopyWith<$Res>
   $ImageItemModelCopyWith<$Res> get fixedWidthStill;
   @override
   $ImageItemModelCopyWith<$Res> get downsizedStill;
+  @override
+  $ImageItemModelCopyWith<$Res> get downsizedSmall;
 }
 
 /// @nodoc
@@ -217,6 +238,7 @@ class __$$_ImagesModelCopyWithImpl<$Res> extends _$ImagesModelCopyWithImpl<$Res>
     Object? fixedWidth = freezed,
     Object? fixedWidthStill = freezed,
     Object? downsizedStill = freezed,
+    Object? downsizedSmall = freezed,
   }) {
     return _then(_$_ImagesModel(
       original: original == freezed
@@ -243,6 +265,10 @@ class __$$_ImagesModelCopyWithImpl<$Res> extends _$ImagesModelCopyWithImpl<$Res>
           ? _value.downsizedStill
           : downsizedStill // ignore: cast_nullable_to_non_nullable
               as ImageItemModel,
+      downsizedSmall: downsizedSmall == freezed
+          ? _value.downsizedSmall
+          : downsizedSmall // ignore: cast_nullable_to_non_nullable
+              as ImageItemModel,
     ));
   }
 }
@@ -256,7 +282,8 @@ class _$_ImagesModel implements _ImagesModel {
       @JsonKey(name: 'fixed_height_still') required this.fixedHeightStill,
       @JsonKey(name: 'fixed_width') required this.fixedWidth,
       @JsonKey(name: 'fixed_width_still') required this.fixedWidthStill,
-      @JsonKey(name: 'downsized_still') required this.downsizedStill});
+      @JsonKey(name: 'downsized_still') required this.downsizedStill,
+      @JsonKey(name: 'downsized_small') required this.downsizedSmall});
 
   factory _$_ImagesModel.fromJson(Map<String, dynamic> json) =>
       _$$_ImagesModelFromJson(json);
@@ -298,9 +325,14 @@ class _$_ImagesModel implements _ImagesModel {
   @JsonKey(name: 'downsized_still')
   final ImageItemModel downsizedStill;
 
+  /// Data on a version of this GIF downsized to be under 200kb.
+  @override
+  @JsonKey(name: 'downsized_small')
+  final ImageItemModel downsizedSmall;
+
   @override
   String toString() {
-    return 'ImagesModel(original: $original, fixedHeight: $fixedHeight, fixedHeightStill: $fixedHeightStill, fixedWidth: $fixedWidth, fixedWidthStill: $fixedWidthStill, downsizedStill: $downsizedStill)';
+    return 'ImagesModel(original: $original, fixedHeight: $fixedHeight, fixedHeightStill: $fixedHeightStill, fixedWidth: $fixedWidth, fixedWidthStill: $fixedWidthStill, downsizedStill: $downsizedStill, downsizedSmall: $downsizedSmall)';
   }
 
   @override
@@ -318,7 +350,9 @@ class _$_ImagesModel implements _ImagesModel {
             const DeepCollectionEquality()
                 .equals(other.fixedWidthStill, fixedWidthStill) &&
             const DeepCollectionEquality()
-                .equals(other.downsizedStill, downsizedStill));
+                .equals(other.downsizedStill, downsizedStill) &&
+            const DeepCollectionEquality()
+                .equals(other.downsizedSmall, downsizedSmall));
   }
 
   @JsonKey(ignore: true)
@@ -330,7 +364,8 @@ class _$_ImagesModel implements _ImagesModel {
       const DeepCollectionEquality().hash(fixedHeightStill),
       const DeepCollectionEquality().hash(fixedWidth),
       const DeepCollectionEquality().hash(fixedWidthStill),
-      const DeepCollectionEquality().hash(downsizedStill));
+      const DeepCollectionEquality().hash(downsizedStill),
+      const DeepCollectionEquality().hash(downsizedSmall));
 
   @JsonKey(ignore: true)
   @override
@@ -357,7 +392,9 @@ abstract class _ImagesModel implements ImagesModel {
       @JsonKey(name: 'fixed_width_still')
           required final ImageItemModel fixedWidthStill,
       @JsonKey(name: 'downsized_still')
-          required final ImageItemModel downsizedStill}) = _$_ImagesModel;
+          required final ImageItemModel downsizedStill,
+      @JsonKey(name: 'downsized_small')
+          required final ImageItemModel downsizedSmall}) = _$_ImagesModel;
 
   factory _ImagesModel.fromJson(Map<String, dynamic> json) =
       _$_ImagesModel.fromJson;
@@ -399,6 +436,11 @@ abstract class _ImagesModel implements ImagesModel {
   /// Data on a static preview image of the downsized version of this GIF.
   @JsonKey(name: 'downsized_still')
   ImageItemModel get downsizedStill;
+  @override
+
+  /// Data on a version of this GIF downsized to be under 200kb.
+  @JsonKey(name: 'downsized_small')
+  ImageItemModel get downsizedSmall;
   @override
   @JsonKey(ignore: true)
   _$$_ImagesModelCopyWith<_$_ImagesModel> get copyWith =>

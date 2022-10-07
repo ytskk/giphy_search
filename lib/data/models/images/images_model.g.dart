@@ -21,6 +21,8 @@ _$_ImagesModel _$$_ImagesModelFromJson(Map<String, dynamic> json) =>
           json['fixed_width_still'] as Map<String, dynamic>),
       downsizedStill: ImageItemModel.fromJson(
           json['downsized_still'] as Map<String, dynamic>),
+      downsizedSmall: ImageItemModel.fromJson(
+          json['downsized_small'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$_ImagesModelToJson(_$_ImagesModel instance) =>
@@ -31,4 +33,5 @@ Map<String, dynamic> _$$_ImagesModelToJson(_$_ImagesModel instance) =>
       'fixed_width': instance.fixedWidth,
       'fixed_width_still': instance.fixedWidthStill,
       'downsized_still': instance.downsizedStill,
+      'downsized_small': instance.downsizedSmall,
     };

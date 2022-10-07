@@ -10,7 +10,8 @@ class GifModel with _$GifModel {
   /// GIF Objects are returned from most of GIPHY API's Endpoints.
   ///
   /// These objects contain a variety of information, such as the Image Object,
-  /// which itself includes the URLS for multiple different GIFS formats and sizes.
+  /// which itself includes the URLS for multiple different GIFS formats
+  /// and sizes.
   const factory GifModel({
     /// By default, this is almost always GIF.
     required String type,

@@ -94,13 +94,16 @@ class _SearchPageState extends State<SearchPage> {
                 context.read<SearchBloc>().add(const SearchLoadGifsRefresh());
               },
               onScroll: (scrollController) {
-                /// If the user has scrolled to the bottom of the page - 600 px,
-                /// load next page with throttle of 500 ms.
-                if (scrollController.position.pixels >
-                    scrollController.position.maxScrollExtent - 600) {
-                  context.read<SearchBloc>().add(
-                        const SearchLoadGifsNextPage(),
-                      );
+                // Load only when is not loaded already.
+                if (state.status != SearchLoadStatus.inProgress) {
+                  /// If the user has scrolled to the bottom of the page - 600 px,
+                  /// load next page with throttle of 500 ms.
+                  if (scrollController.position.pixels >
+                      scrollController.position.maxScrollExtent - 1200) {
+                    context.read<SearchBloc>().add(
+                          const SearchLoadGifsNextPage(),
+                        );
+                  }
                 }
               },
               itemCount: gifs.length,

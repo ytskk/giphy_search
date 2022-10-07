@@ -36,6 +36,9 @@ class ImagesModel with _$ImagesModel {
 
     /// Data on a static preview image of the downsized version of this GIF.
     @JsonKey(name: 'downsized_still') required ImageItemModel downsizedStill,
+
+    /// Data on a version of this GIF downsized to be under 200kb.
+    @JsonKey(name: 'downsized_small') required ImageItemModel downsizedSmall,
   }) = _ImagesModel;
 
   factory ImagesModel.fromJson(Map<String, dynamic> json) =>

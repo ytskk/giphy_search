@@ -30,7 +30,7 @@ class GiphyRemoteRepository implements GiphyRepositoryInterface {
         },
       );
 
-      return SearchResponseModel.fromJson(res.data);
+      return SearchResponseModel.fromJson(res.data as Map<String, dynamic>);
     } catch (e) {
       log('error: $e', name: 'GiphyRemoteRepository::search::error');
       rethrow;
