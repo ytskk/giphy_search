@@ -4,6 +4,8 @@ import 'dart:ui';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+import 'package:giphy/constants/app_constants.dart';
 import 'package:giphy/core/core.dart';
 import 'package:giphy/data/data.dart';
 
@@ -35,14 +37,16 @@ class _GifCardItemState extends State<GifCardItem> {
 
         return ClipRRect(
           borderRadius: BorderRadius.circular(4),
-          // Caches data for 7 days.
+          // Caches data for 1 days.
           child: CachedNetworkImage(
+            cacheManager: baseGifsCacheManager,
+            width: constraints.maxWidth,
             imageUrl: imageToLoad.url!,
             cacheKey: widget.gif.id,
             // Shows static downsized image placeholder while loading.
-            // TODO: progress show. Coefficient to width.
             progressIndicatorBuilder: (_, __, progress) {
               return CachedNetworkImage(
+                cacheManager: baseGifsCacheManager,
                 imageUrl: widget.gif.images.downsizedStill.url!,
                 cacheKey: '${widget.gif.id}_still',
 

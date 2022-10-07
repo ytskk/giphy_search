@@ -64,13 +64,17 @@ class _ResponsiveMasonryViewState extends State<ResponsiveMasonryView> {
           onRefresh: () async => await widget.onRefresh?.call(),
           child: ScrollsToTop(
             onScrollsToTop: (event) async {
-              _scrollController.animateTo(
+              await _scrollController.animateTo(
                 0,
                 duration: const Duration(milliseconds: 350),
                 curve: Curves.linear,
               );
             },
             child: MasonryGridView.builder(
+              /// Allows to preload images.
+              ///
+              /// default value - 250
+              cacheExtent: 800,
               controller: _scrollController,
               itemCount: widget.itemCount,
               gridDelegate: SliverSimpleGridDelegateWithFixedCrossAxisCount(
