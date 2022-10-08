@@ -30,19 +30,26 @@ class SearchAppBar extends StatelessWidget with PreferredSizeWidget {
                 const BrandIcon(),
                 const SizedBox(width: 8),
                 Expanded(
-                  child: TextField(
-                    controller: controller,
-                    decoration: const InputDecoration(
-                      hintText: 'Search',
-                      border: InputBorder.none,
+                  child: SizedBox(
+                    height: 44,
+                    child: TextField(
+                      controller: controller,
+                      decoration: const InputDecoration(
+                        contentPadding: EdgeInsets.symmetric(
+                          vertical: 8,
+                          horizontal: 16,
+                        ),
+                        hintText: 'Search',
+                        border: OutlineInputBorder(),
+                      ),
+                      onChanged: (value) {
+                        context.read<SearchBloc>().add(
+                              SearchQueryChanged(
+                                q: value,
+                              ),
+                            );
+                      },
                     ),
-                    onChanged: (value) {
-                      context.read<SearchBloc>().add(
-                            SearchQueryChanged(
-                              q: value,
-                            ),
-                          );
-                    },
                   ),
                 ),
               ],

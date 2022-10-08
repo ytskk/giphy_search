@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -48,6 +49,8 @@ class _SearchPageState extends State<SearchPage> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = CupertinoTheme.of(context);
+
     return Scaffold(
       appBar: SearchAppBar(
         controller: _textEditingController,
@@ -81,37 +84,46 @@ class _SearchPageState extends State<SearchPage> {
 
           if (state.status == SearchLoadStatus.inProgress ||
               state.status == SearchLoadStatus.success) {
-            final List<GifModel> gifs = state.gifs!.data;
+            final gifs = state.gifs!.data;
 
             if (gifs.isEmpty) {
-              return const Center(
-                child: Text('No gifs found'),
+              return Center(
+                child: Text(
+                  'There are no GIFs for “${state.q}”.\nTry another query.',
+                  textAlign: TextAlign.center,
+                  style: theme.textTheme.textStyle.copyWith(
+                    color: Colors.white,
+                    height: 1.5,
+                  ),
+                ),
               );
             }
 
-            return ResponsiveMasonryView(
-              onRefresh: () async {
-                context.read<SearchBloc>().add(const SearchLoadGifsRefresh());
-              },
-              onScroll: (scrollController) {
-                // Load only when is not loaded already.
-                if (state.status != SearchLoadStatus.inProgress) {
-                  /// If the user has scrolled to the bottom of the page - 600 px,
-                  /// load next page with throttle of 500 ms.
-                  if (scrollController.position.pixels >
-                      scrollController.position.maxScrollExtent - 1200) {
-                    context.read<SearchBloc>().add(
-                          const SearchLoadGifsNextPage(),
-                        );
+            return SafeArea(
+              child: ResponsiveMasonryView(
+                onRefresh: () async {
+                  context.read<SearchBloc>().add(const SearchLoadGifsRefresh());
+                },
+                onScroll: (scrollController) {
+                  // Load only when is not loaded already.
+                  if (state.status != SearchLoadStatus.inProgress) {
+                    /// If the user has scrolled to the bottom of the page -
+                    /// 600 px, load next page with throttle of 500 ms.
+                    if (scrollController.position.pixels >
+                        scrollController.position.maxScrollExtent - 1200) {
+                      context.read<SearchBloc>().add(
+                            const SearchLoadGifsNextPage(),
+                          );
+                    }
                   }
-                }
-              },
-              itemCount: gifs.length,
-              itemBuilder: (BuildContext context, int index) {
-                final gif = gifs.elementAt(index);
+                },
+                itemCount: gifs.length,
+                itemBuilder: (BuildContext context, int index) {
+                  final gif = gifs.elementAt(index);
 
-                return GifCardItem(gif: gif);
-              },
+                  return GifCardItem(gif: gif);
+                },
+              ),
             );
           }
 

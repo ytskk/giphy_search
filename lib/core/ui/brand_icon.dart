@@ -72,7 +72,7 @@ class _BrandIconState extends State<BrandIcon>
       builder: (context, child) {
         return Icon(
           Icons.gif_box_rounded,
-          size: 44,
+          size: 58,
           color: _colorAnimation.value,
         );
       },
