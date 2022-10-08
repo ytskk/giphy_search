@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:giphy/core/ui/ui.dart';
 
 import 'package:giphy/features/features.dart';
 
@@ -12,6 +13,9 @@ class SearchAppBar extends StatelessWidget with PreferredSizeWidget {
   final TextEditingController? controller;
 
   @override
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+
+  @override
   Widget build(BuildContext context) {
     return BlocBuilder<SearchBloc, SearchState>(
       builder: (context, state) {
@@ -19,10 +23,12 @@ class SearchAppBar extends StatelessWidget with PreferredSizeWidget {
           backgroundColor: Colors.black,
           title: ConstrainedBox(
             constraints: const BoxConstraints(
-              maxWidth: 1024.0,
+              maxWidth: 1024,
             ),
             child: Row(
               children: [
+                const BrandIcon(),
+                const SizedBox(width: 8),
                 Expanded(
                   child: TextField(
                     controller: controller,
@@ -43,7 +49,7 @@ class SearchAppBar extends StatelessWidget with PreferredSizeWidget {
             ),
           ),
           bottom: PreferredSize(
-            preferredSize: const Size.fromHeight(4.0),
+            preferredSize: const Size.fromHeight(4),
             child: AnimatedSize(
               duration: const Duration(milliseconds: 200),
               curve: Curves.easeOut,
@@ -56,7 +62,4 @@ class SearchAppBar extends StatelessWidget with PreferredSizeWidget {
       },
     );
   }
-
-  @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }

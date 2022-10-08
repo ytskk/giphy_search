@@ -55,6 +55,7 @@ class _GifCardItemState extends State<GifCardItem> {
                 /// Prevents jumping of the image when it loads.
                 progressIndicatorBuilder: (_, __, ___) =>
                     _GifCardItemPlaceholder(
+                  colorKey: _getColorKey(widget.gif.id.hashCode),
                   height: NumberUtils.parseOr(
                         widget.gif.images.downsizedStill.height,
                         100,
@@ -72,6 +73,10 @@ class _GifCardItemState extends State<GifCardItem> {
       },
     );
   }
+
+  int _getColorKey(int hash) {
+    return hash % colorVariants.length;
+  }
 }
 
 class _GifCardItemPlaceholder extends StatelessWidget {
@@ -79,10 +84,12 @@ class _GifCardItemPlaceholder extends StatelessWidget {
     super.key,
     required this.height,
     required this.progress,
+    this.colorKey,
   });
 
   final double height;
   final double progress;
+  final int? colorKey;
 
   @override
   Widget build(BuildContext context) {
@@ -93,7 +100,7 @@ class _GifCardItemPlaceholder extends StatelessWidget {
       child: AnimatedOpacity(
         opacity: progress,
         duration: const Duration(milliseconds: 300),
-        child: ColoredBox(color: primaryColor),
+        child: ColoredBox(color: colorVariants.elementAt(colorKey ?? 0)),
       ),
     );
   }

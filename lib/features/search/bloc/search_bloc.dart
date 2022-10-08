@@ -66,7 +66,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
         name: 'SearchBloc::_onSearchLoadGifs',
       );
       final res = await _giphyRepository.search(
-        apiKey: 'Roto2RsvLWnmSW9FdmV2579oGUc3k928',
+        apiKey: const String.fromEnvironment('API_KEY'),
         q: event.q ?? state.q,
         limit: _perPage,
         offset: page * _perPage,
@@ -90,7 +90,8 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
         ),
       );
       page += 1;
-      sharedPreferences.setString('latest_query', state.q);
+      // TODO: should use DI, but ok for now.
+      await sharedPreferences.setString('latest_query', state.q);
     } catch (e) {
       emit(
         state.copyWith(
