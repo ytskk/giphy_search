@@ -15,8 +15,6 @@ Bonus points will be given for:
 ## Bonus
 #### Loading more results "seamlessly" before the user reaches the last item in the list so (at least on a decent network connection) the scrolling is not interrupted by the next page load;
 To achieve this I will request new page when user remains 1200 px to end of list. User can enjoy about 4 screens of gorgeous gifts until he will go to the next page. I ran into an interesting problem and came up with an equally interesting solution. When the user uploads gifs, by default nothing is displayed instead of video without sound, literally a black screen. But actually the scroll area is rendered there and if the user scrolls, it will load a lot of pages in a row, resulting in an even longer wait. So I use placeholders, which are filled with color boxes of future gifs (the size is set from the ratio of the actual width of the card and the original width of the gif from the server, based on this ratio and calculates the future height of the gif), the more intense the color, the closer the gif to the user. 
-
-Translated with www.DeepL.com/Translator (free version)
 #### Using state management approaches or libraries such as BLoC (flutter_bloc), Riverpod or others;
 BLoC
 #### Separating business logic from the UI;
