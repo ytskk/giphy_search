@@ -72,7 +72,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
         offset: page * _perPage,
       );
 
-      // TODO: refactor
+      // TODO: refactor -> simplify logic.
       emit(
         state.copyWith(
           q: event.q ?? state.q,

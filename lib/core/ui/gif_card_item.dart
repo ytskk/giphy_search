@@ -24,8 +24,7 @@ class GifCardItem extends StatefulWidget {
 class _GifCardItemState extends State<GifCardItem> {
   @override
   Widget build(BuildContext context) {
-    final imageToLoad =
-        widget.gif.images.original ?? widget.gif.images.fixedWidth;
+    final imageToLoad = widget.gif.images.fixedWidth;
 
     return LayoutBuilder(
       builder: (context, constraints) {
@@ -37,39 +36,62 @@ class _GifCardItemState extends State<GifCardItem> {
 
         return ClipRRect(
           borderRadius: BorderRadius.circular(4),
-          // Caches data for 1 days.
-          child: CachedNetworkImage(
-            cacheManager: baseGifsCacheManager,
-            width: constraints.maxWidth,
-            imageUrl: imageToLoad.url!,
-            cacheKey: widget.gif.id,
-            // Shows static downsized image placeholder while loading.
-            progressIndicatorBuilder: (_, __, progress) {
-              return CachedNetworkImage(
-                cacheManager: baseGifsCacheManager,
-                imageUrl: widget.gif.images.downsizedStill.url!,
-                cacheKey: '${widget.gif.id}_still',
-
-                /// Adds placeholder for gifs.
-                ///
-                /// Prevents jumping of the image when it loads.
-                progressIndicatorBuilder: (_, __, ___) =>
-                    _GifCardItemPlaceholder(
-                  colorKey: _getColorKey(widget.gif.id.hashCode),
-                  height: NumberUtils.parseOr(
-                        widget.gif.images.downsizedStill.height,
-                        100,
-                      ) *
-                      sizeCoefficient,
-                  progress:
-                      NumberUtils.parseOr(progress.progress, 0.1) as double,
-                ),
-              );
-            },
-            fit: BoxFit.cover,
-            filterQuality: FilterQuality.high,
+          child: Image.network(
+            imageToLoad.url!,
+            loadingBuilder: (context, child, loadingProgress) =>
+                loadingProgress == null
+                    ? child
+                    : _GifCardItemPlaceholder(
+                        colorKey: _getColorKey(widget.gif.id.hashCode),
+                        height: NumberUtils.parseOr(
+                              widget.gif.images.downsizedStill.height,
+                              100,
+                            ) *
+                            sizeCoefficient,
+                        progress: loadingProgress.expectedTotalBytes != null
+                            ? loadingProgress.cumulativeBytesLoaded /
+                                loadingProgress.expectedTotalBytes!
+                            : 0,
+                      ),
           ),
         );
+
+        // TODO: add image caching.
+        // return ClipRRect(
+        //   borderRadius: BorderRadius.circular(4),
+        //   // Caches data for 1 days.
+        //   child: CachedNetworkImage(
+        //     cacheManager: baseGifsCacheManager,
+        //     width: constraints.maxWidth,
+        //     imageUrl: imageToLoad.url!,
+        //     cacheKey: widget.gif.id,
+        //     // Shows static downsized image placeholder while loading.
+        //     progressIndicatorBuilder: (_, __, progress) {
+        //       return CachedNetworkImage(
+        //         cacheManager: baseGifsCacheManager,
+        //         imageUrl: widget.gif.images.downsizedStill.url!,
+        //         cacheKey: '${widget.gif.id}_still',
+
+        //         /// Adds placeholder for gifs.
+        //         ///
+        //         /// Prevents jumping of the image when it loads.
+        //         progressIndicatorBuilder: (_, __, ___) =>
+        //             _GifCardItemPlaceholder(
+        //           colorKey: _getColorKey(widget.gif.id.hashCode),
+        //           height: NumberUtils.parseOr(
+        //                 widget.gif.images.downsizedStill.height,
+        //                 100,
+        //               ) *
+        //               sizeCoefficient,
+        //           progress:
+        //               NumberUtils.parseOr(progress.progress, 0.1) as double,
+        //         ),
+        //       );
+        //     },
+        //     fit: BoxFit.cover,
+        //     filterQuality: FilterQuality.high,
+        //   ),
+        // );
       },
     );
   }
